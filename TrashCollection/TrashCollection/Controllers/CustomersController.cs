@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,7 @@ using TrashCollection.Models;
 
 namespace TrashCollection.Controllers
 {
+    [Authorize(Roles = "Customer")]
     public class CustomersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -61,6 +64,9 @@ namespace TrashCollection.Controllers
         {
             if (ModelState.IsValid)
             {
+                //check if right
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                customer.IdentityUserId = userId;
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
