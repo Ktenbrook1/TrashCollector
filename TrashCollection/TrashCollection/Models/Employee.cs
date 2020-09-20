@@ -14,8 +14,12 @@ namespace TrashCollection.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
+        [Display(Name ="Zip Code")]
         public int ZipCode { get; set; }
+        [Required]
         public string Adress { get; set; }
 
 

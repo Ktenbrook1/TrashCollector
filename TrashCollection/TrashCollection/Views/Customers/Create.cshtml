@@ -1,4 +1,5 @@
-﻿@model TrashCollection.Models.Customer
+﻿
+@model TrashCollection.Models.Customer
 
 @{
     ViewData["Title"] = "Create";
@@ -29,9 +30,11 @@
                 <span asp-validation-for="Adress" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DayOfPickup" class="control-label"></label>
-                <input asp-for="DayOfPickup" class="form-control" />
-                <span asp-validation-for="DayOfPickup" class="text-danger"></span>
+                <label asp-for="Day" class="control-label"></label>
+                @Html.DropDownListFor(m => m.Day,
+                new SelectList(Enum.GetValues(typeof(Days))),
+                "Select day of weekly pickup")
+                <span asp-validation-for="Day" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="RequestOfExtraPickup" class="control-label"></label>
@@ -55,7 +58,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="IdentityUserId" class="control-label"></label>
-                <select asp-for="IdentityUserId" class ="form-control" asp-items="ViewBag.IdentityUserId"></select>
+                <select asp-for="IdentityUserId" class="form-control" asp-items="ViewBag.IdentityUserId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

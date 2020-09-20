@@ -37,6 +37,7 @@ namespace TrashCollection.Data
             }
             );
         }
+
         //DbSet<Employee> employees { get; set; } 
         public DbSet<TrashCollection.Models.Employee> Employee { get; set; }
 

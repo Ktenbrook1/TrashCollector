@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-
+using TrashCollection.Controllers;
 
 namespace TrashCollection.Areas.Identity.Pages.Account
 {
@@ -104,6 +104,12 @@ namespace TrashCollection.Areas.Identity.Pages.Account
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    // check Input.Role
+                    //if customer redirect to create
+                    //if employee same
+
+                   // return RedirectToAction(Create, CustomersController);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

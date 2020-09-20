@@ -25,8 +25,15 @@ namespace TrashCollection.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.customers.Include(c => c.IdentityUser);
-            return View(await applicationDbContext.ToListAsync());
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            // update query to only get only the logged in customer
+
+            var loggedInCustomer = _context.customers.Where(c => c.IdentityUserId == userId).Include(c => c.IdentityUser);
+
+            ViewData["CustomerExists"] = loggedInCustomer.Count() == 1;
+
+           // return View(await loggedInCustomer.ToListAsync());
+            return View(loggedInCustomer);
         }
 
         // GET: Customers/Details/5

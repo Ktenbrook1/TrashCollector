@@ -20,6 +20,9 @@ namespace TrashCollection.Controllers
 
         public IActionResult Index()
         {
+            // get who is logged in, check their role
+            // if customer, go to Custopmers Index
+            // otherwise, go to employees index action
             return View();
         }
 
