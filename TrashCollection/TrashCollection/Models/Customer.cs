@@ -24,13 +24,14 @@ namespace TrashCollection.Models
         public Days Day { get; set; }
         [Required]
         [Display(Name = "Optional extra pickup date")]
-        public string RequestOfExtraPickup { get; set; }
+        [System.ComponentModel.Bindable(true, System.ComponentModel.BindingDirection.TwoWay)]
+        public DateTime RequestOfExtraPickup { get; set; }
         [Required]
-        [Display(Name = "Start date")]
-        public string StartDate { get; set; }
+        [Display(Name = "Start date of temporary suspension")]
+        public DateTime StartDate { get; set; }
         [Required]
-        [Display(Name = "End date")]
-        public string EndDate { get; set; }
+        [Display(Name = "End date of Temporary suspension")]
+        public DateTime EndDate { get; set; }
         public double Balance { get; set; }
 
         [ForeignKey("IdentityUser")]

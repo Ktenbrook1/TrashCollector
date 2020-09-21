@@ -6,7 +6,7 @@
 }
 
 <h1>Index</h1>
-@if ( false ==(bool)ViewData["CustomerExists"] )
+@if (false == (bool)ViewData["CustomerExists"])
 {
     <h1>PLEASE CREATE YOUR ACCOUNT!</h1>
     <p>
@@ -50,6 +50,12 @@
     <tbody>
         @foreach (var item in Model)
         {
+            <div class="container">
+                <h3>Your current balance is @Html.DisplayFor(modleItem => item.Balance)</h3>
+                <p> Each pickup cost $239.91</p>
+                <input type="button" value="Pay Now" class="btn btn-primary" />
+            </div>
+            <br />
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)

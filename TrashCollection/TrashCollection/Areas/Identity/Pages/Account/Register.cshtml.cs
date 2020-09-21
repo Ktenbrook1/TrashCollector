@@ -105,11 +105,15 @@ namespace TrashCollection.Areas.Identity.Pages.Account
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    // check Input.Role
-                    //if customer redirect to create
-                    //if employee same
-
-                   // return RedirectToAction(Create, CustomersController);
+                 
+                    //if(Input.Role == "Customer")
+                    //{
+                    //    return RedirectToAction("Create", "Customer");
+                    //}
+                    //else if(Input.Role == "Employee")
+                    //{
+                    //    return RedirectToAction("Create", "Employee");
+                    //}
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

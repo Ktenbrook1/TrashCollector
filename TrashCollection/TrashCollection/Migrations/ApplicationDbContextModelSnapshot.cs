@@ -48,15 +48,15 @@ namespace TrashCollection.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "34f7ca83-2912-4870-8a02-abd0aadc3487",
-                            ConcurrencyStamp = "eb684779-3937-4983-8b27-c239c3da2b0b",
+                            Id = "5dd3c91d-a56b-48be-9c67-950dfeca31d6",
+                            ConcurrencyStamp = "401afc23-343e-4c28-a3b2-c986a665bf5c",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "cec109b4-fa12-49d8-b259-bbe76246d186",
-                            ConcurrencyStamp = "a76dff75-5255-435d-8db3-eabca3742053",
+                            Id = "03979a71-9f3d-4603-bf8c-0aea9a911e38",
+                            ConcurrencyStamp = "31e3d19e-3bba-4b6c-ba5c-94849a8ac191",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -248,9 +248,8 @@ namespace TrashCollection.Migrations
                     b.Property<int>("Day")
                         .HasColumnType("int");
 
-                    b.Property<string>("EndDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("IdentityUserId")
                         .HasColumnType("nvarchar(450)");
@@ -259,13 +258,11 @@ namespace TrashCollection.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RequestOfExtraPickup")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("RequestOfExtraPickup")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("StartDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ZipCode")
                         .HasColumnType("int");
