@@ -40,12 +40,12 @@ namespace TrashCollection.Models
         public IdentityUser IdentityUser { get; set; }
     }
     //maybe make into a method of strings...
-    public enum Days
+    public enum Days 
     {
-        Monday,
-        Tuesday,
-        Wednesday,
-        Thursday,
-        Friday
+        Monday = 0,
+        Tuesday = 1,
+        Wednesday = 2,
+        Thursday = 3,
+        Friday = 4
     }
 }

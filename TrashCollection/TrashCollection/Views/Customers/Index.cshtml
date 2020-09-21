@@ -1,19 +1,14 @@
 ﻿@model IEnumerable<TrashCollection.Models.Customer>
-//For the actual customer
+<!--For the actual customer-->
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Index</h1>
-@if (false == (bool)ViewData["CustomerExists"])
-{
-    <h1>PLEASE CREATE YOUR ACCOUNT!</h1>
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-}
-
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>

@@ -27,10 +27,22 @@ namespace TrashCollection.Controllers
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var loggedInEmployee = _context.Employee.Where(c => c.IdentityUserId == userId).Include(c => c.IdentityUser);
+            var loggedInEmployee = _context.Employee.Where(e => e.IdentityUserId == userId).SingleOrDefault();
 
-            ViewData["EmployeeExists"] = loggedInEmployee.Count() == 1;
-            return View(loggedInEmployee);
+            var customerInZipcode = _context.customers.Where(c => c.ZipCode == loggedInEmployee.ZipCode).ToList();
+
+            var today = DateTime.Now.DayOfWeek.ToString();
+
+            string test = customerInZipcode[0].Day.ToString();
+
+            var customerPickUpDay = customerInZipcode.Where(c => c.Day.ToString() == today).ToList();
+
+
+            var loggedInEmployee2 = _context.Employee.Where(c => c.IdentityUserId == userId).Include(c => c.IdentityUser);
+
+            ViewData["EmployeeExists"] = loggedInEmployee2.Count() == 1;
+
+            return View(customerPickUpDay);
         }
 
         // GET: Employees/Details/5
