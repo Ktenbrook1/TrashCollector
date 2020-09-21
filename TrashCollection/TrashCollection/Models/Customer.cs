@@ -22,22 +22,24 @@ namespace TrashCollection.Models
         [Required]
         [Display(Name="Day of pickup")]
         public Days Day { get; set; }
-        [Required]
+        
         [Display(Name = "Optional extra pickup date")]
         [System.ComponentModel.Bindable(true, System.ComponentModel.BindingDirection.TwoWay)]
-        public DateTime RequestOfExtraPickup { get; set; }
-        [Required]
+        public DateTime? RequestOfExtraPickup { get; set; }
+        
         [Display(Name = "Start date of temporary suspension")]
-        public DateTime StartDate { get; set; }
-        [Required]
+        public DateTime? StartDate { get; set; }
+
         [Display(Name = "End date of Temporary suspension")]
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
+
         public double Balance { get; set; }
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
     }
+    //maybe make into a method of strings...
     public enum Days
     {
         Monday,

@@ -10,8 +10,8 @@ using TrashCollection.Data;
 namespace TrashCollection.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200921001652_CustomersAdded")]
-    partial class CustomersAdded
+    [Migration("20200921151928_UpdatedCustomers")]
+    partial class UpdatedCustomers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,15 +50,15 @@ namespace TrashCollection.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5dd3c91d-a56b-48be-9c67-950dfeca31d6",
-                            ConcurrencyStamp = "401afc23-343e-4c28-a3b2-c986a665bf5c",
+                            Id = "7ecaf38a-3914-4d7d-b803-369c98efd806",
+                            ConcurrencyStamp = "b9a013fb-b18a-47dc-94b9-c22e01504fb4",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "03979a71-9f3d-4603-bf8c-0aea9a911e38",
-                            ConcurrencyStamp = "31e3d19e-3bba-4b6c-ba5c-94849a8ac191",
+                            Id = "003bd867-8a1a-4cf6-9683-1d434e775c62",
+                            ConcurrencyStamp = "80418a42-12b7-4e16-93c3-17dc04db21c5",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -250,7 +250,7 @@ namespace TrashCollection.Migrations
                     b.Property<int>("Day")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("IdentityUserId")
@@ -260,10 +260,10 @@ namespace TrashCollection.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("RequestOfExtraPickup")
+                    b.Property<DateTime?>("RequestOfExtraPickup")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("StartDate")
+                    b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ZipCode")
