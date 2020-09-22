@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TrashCollection.Data;
 using TrashCollection.Models;
+using TrashCollection.Models.ViewModels;
 
 namespace TrashCollection.Controllers
 {
@@ -23,6 +24,8 @@ namespace TrashCollection.Controllers
         // GET: Employees
         public async Task<IActionResult> Index()
         {
+            CustomersDayFilter cdf = new CustomersDayFilter();
+
             var applicationDbContext = _context.Employee.Include(e => e.IdentityUser);
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -33,17 +36,47 @@ namespace TrashCollection.Controllers
 
             var today = DateTime.Now.DayOfWeek.ToString();
 
-            string test = customerInZipcode[0].Day.ToString();
+            // string test = customerInZipcode[0].Day.ToString();
 
-            var customerPickUpDay = customerInZipcode.Where(c => c.Day.ToString() == today).ToList();
-
+            cdf.Customers = customerInZipcode.Where(c => c.Day.ToString() == today).ToList();
 
             var loggedInEmployee2 = _context.Employee.Where(c => c.IdentityUserId == userId).Include(c => c.IdentityUser);
 
             ViewData["EmployeeExists"] = loggedInEmployee2.Count() == 1;
 
-            return View(customerPickUpDay);
+            return View(cdf);
         }
+
+        //GET: Select from dropdown
+        [HttpPost]
+        public async Task<IActionResult> Select(CustomersDayFilter cdf)
+        {
+            cdf = new CustomersDayFilter();
+
+            var applicationDbContext = _context.Employee.Include(e => e.IdentityUser);
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var loggedInEmployee = _context.Employee.Where(e => e.IdentityUserId == userId).SingleOrDefault();
+
+            var customerInZipcode = _context.customers.Where(c => c.ZipCode == loggedInEmployee.ZipCode).ToList();
+
+            //var customerPickUpDay = cdf.Customers;
+
+            //cdf.Customers = customerInZipcode.Where(c => c.Day.ToString() == customerPickUpDay).ToList();
+
+            //var loggedInEmployee2 = _context.Employee.Where(c => c.IdentityUserId == userId).Include(c => c.IdentityUser);
+
+            //ViewData["EmployeeExists"] = loggedInEmployee2.Count() == 1;
+
+            //return View("Index", customerPickUpDay);
+            return View(cdf);
+        }
+
+        //public List<Customer> GetCustomersByPickupDay(string dayToFilterBy)
+        //{
+
+        //}
 
         // GET: Employees/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -80,6 +113,9 @@ namespace TrashCollection.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                employee.IdentityUserId = userId;
+
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

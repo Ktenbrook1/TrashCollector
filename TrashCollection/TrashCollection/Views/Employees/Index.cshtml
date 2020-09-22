@@ -1,88 +1,110 @@
-﻿@model IEnumerable<TrashCollection.Models.Customer>
+﻿@model TrashCollection.Models.ViewModels.CustomersDayFilter
 <!--//for the employee-->
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Index</h1>
-@if (false == (bool)ViewData["EmployeeExists"])
-{
-    <h1>PLEASE CREATE YOUR ACCOUNT!</h1>
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-}
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ZipCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Adress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Day)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RequestOfExtraPickup)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Balance)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdentityUser)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<body>
+    <h1>Index</h1>
+    @if (false == (bool)ViewData["EmployeeExists"])
+    {
+        <h1>PLEASE CREATE YOUR ACCOUNT!</h1>
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+    }
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ZipCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Adress)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Day)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequestOfExtraPickup)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Balance)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdentityUser.Id)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Name)*@
+                    Name
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.ZipCode)*@
+                    ZipCode
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Adress)*@
+                    Address
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Day)*@
+                    Day
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.RequestOfExtraPickup)*@
+                    Request of Extra Pickup
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.StartDate)*@
+                    Start Date
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.EndDate)*@
+                    End Date
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.Balance)*@
+                    Balance
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.IdentityUser)*@
+                    Identity User
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Customers)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ZipCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Adress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Day)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RequestOfExtraPickup)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Balance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdentityUser.Id)
+                    </td>
+                    <td>
+                        <button class="btn btn-primary">Confirm Pickup</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+   
+    <form asp-action="Select">
+        <p>What day would you like to look at?:</p>
+        <select asp-for="DaySelection" class="form-control">
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+        </select>
+        <br />
+        <input type="submit" value="Select" class="btn btn-primary my-3" />
+    </form>
+    
+</body>

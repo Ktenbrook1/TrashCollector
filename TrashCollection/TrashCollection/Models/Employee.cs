@@ -17,14 +17,18 @@ namespace TrashCollection.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        [Display(Name ="Zip Code")]
+        [Display(Name = "Zip Code")]
         public int ZipCode { get; set; }
         [Required]
         public string Adress { get; set; }
 
-
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
+
+        //[NotMapped]
+        //public List<Customer> Customers { get; set; }
+        //[NotMapped]
+        //public string DaySelection { get; set; }
     }
 }

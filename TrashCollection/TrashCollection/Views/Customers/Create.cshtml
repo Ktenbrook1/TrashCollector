@@ -55,7 +55,8 @@
                 <h5>Your sign up fee will be 100 dollars.</h5>
                 <label asp-for="Balance" class="control-label"></label>
                 <span asp-validation-for="Balance" class="text-danger"></span>
-            </div>         
+            </div>
+            <input type="hidden" asp-for="IdentityUserId" />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
