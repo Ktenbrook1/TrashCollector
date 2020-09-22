@@ -51,8 +51,6 @@ namespace TrashCollection.Controllers
         [HttpPost]
         public async Task<IActionResult> Select(CustomersDayFilter cdf)
         {
-            cdf = new CustomersDayFilter();
-
             var applicationDbContext = _context.Employee.Include(e => e.IdentityUser);
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -61,16 +59,15 @@ namespace TrashCollection.Controllers
 
             var customerInZipcode = _context.customers.Where(c => c.ZipCode == loggedInEmployee.ZipCode).ToList();
 
-            //var customerPickUpDay = cdf.Customers;
+            var customerPickUpDay = cdf.DaySelection;
 
-            //cdf.Customers = customerInZipcode.Where(c => c.Day.ToString() == customerPickUpDay).ToList();
+            cdf.Customers = customerInZipcode.Where(c => c.Day.ToString() == customerPickUpDay).ToList();
+            //to ensurelog in
+            var loggedInEmployee2 = _context.Employee.Where(c => c.IdentityUserId == userId).Include(c => c.IdentityUser);
 
-            //var loggedInEmployee2 = _context.Employee.Where(c => c.IdentityUserId == userId).Include(c => c.IdentityUser);
+            ViewData["EmployeeExists"] = loggedInEmployee2.Count() == 1;
 
-            //ViewData["EmployeeExists"] = loggedInEmployee2.Count() == 1;
-
-            //return View("Index", customerPickUpDay);
-            return View(cdf);
+            return View("Index", cdf);
         }
 
         //public List<Customer> GetCustomersByPickupDay(string dayToFilterBy)
