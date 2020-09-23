@@ -76,7 +76,7 @@ namespace TrashCollection.Controllers
         //}
 
         // GET: ConfirmPickup by ID
-        public async Task<IActionResult> ConfirmPickUp(int? id)
+        public async Task<IActionResult> ConfirmPickup(int? id)
         {
             if (id == null)
             {
@@ -93,14 +93,14 @@ namespace TrashCollection.Controllers
 
             ViewData["EmployeeExists"]  = true;
 
-            return View("Index");
+            return View(customer);
         }
         //POST: ConfirmPickup by ID
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ConfirmPickUp(int id, [Bind("Id,Name,ZipCode,Adress,IdentityUserId")] Employee employee)
+        public async Task<IActionResult> ConfirmPickup(int id, [Bind("Id,Name,ZipCode,Adress,IdentityUserId")] Customer customer, Employee employee)
         {
-            if (id != employee.Id)
+            if (id != customer.Id)
             {
                 return NotFound();
             }
@@ -109,12 +109,12 @@ namespace TrashCollection.Controllers
             {
                 try
                 {
-                    _context.Update(employee);
+                    _context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.Id))
+                    if (!EmployeeExists(customer.Id))
                     {
                         return NotFound();
                     }
@@ -125,8 +125,8 @@ namespace TrashCollection.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityUserId);
-            return View(employee);
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
+            return View("Index", employee);
         }
 
 
@@ -209,6 +209,7 @@ namespace TrashCollection.Controllers
             {
                 try
                 {
+                    //maybe use this part
                     _context.Update(employee);
                     await _context.SaveChangesAsync();
                 }
