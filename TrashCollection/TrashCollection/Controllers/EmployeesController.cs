@@ -47,7 +47,7 @@ namespace TrashCollection.Controllers
             return View(cdf);
         }
 
-        //GET: Select from dropdown
+        //POST: Select from dropdown
         [HttpPost]
         public async Task<IActionResult> Select(CustomersDayFilter cdf)
         {
@@ -75,7 +75,61 @@ namespace TrashCollection.Controllers
 
         //}
 
-        // GET: Employees/Details/5
+        // GET: ConfirmPickup by ID
+        public async Task<IActionResult> ConfirmPickUp(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var customer = await _context.customers.FindAsync(id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
+            //to ensurelog in
+
+            ViewData["EmployeeExists"]  = true;
+
+            return View("Index");
+        }
+        //POST: ConfirmPickup by ID
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmPickUp(int id, [Bind("Id,Name,ZipCode,Adress,IdentityUserId")] Employee employee)
+        {
+            if (id != employee.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(employee);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!EmployeeExists(employee.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityUserId);
+            return View(employee);
+        }
+
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -135,7 +189,8 @@ namespace TrashCollection.Controllers
                 return NotFound();
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityUserId);
-            return View(employee);
+            //where do I want this to go?
+            return View("Index", employee);
         }
 
         // POST: Employees/Edit/5

@@ -87,7 +87,7 @@
                         @Html.DisplayFor(modelItem => item.IdentityUser.Id)
                     </td>
                     <td>
-                        <button class="btn btn-primary">Confirm Pickup</button>
+                        <button><a asp-action="ConfirmPickUp" asp-route-id="@item.Id">Confirm Pickup</a></button>
                     </td>
                 </tr>
             }
