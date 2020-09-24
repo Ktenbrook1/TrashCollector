@@ -35,9 +35,12 @@ namespace TrashCollection.Models
 
         public double Balance { get; set; }
 
+        public bool PickedUp { get; set; } = false;
+
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }
+
     }
     //maybe make into a method of strings...
     public enum Days 

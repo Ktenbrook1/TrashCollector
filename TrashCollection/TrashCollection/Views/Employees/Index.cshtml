@@ -58,38 +58,46 @@
         <tbody>
             @foreach (var item in Model.Customers)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ZipCode)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Adress)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Day)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RequestOfExtraPickup)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StartDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EndDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Balance)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdentityUser.Id)
-                    </td>
-                    <td>
-                        <button><a asp-action="ConfirmPickUp" asp-route-id="@item.Id">Confirm Pickup</a></button>
-                    </td>
-                </tr>
+                @if(item.PickedUp == false)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ZipCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Adress)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Day)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequestOfExtraPickup)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Balance)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdentityUser.Id)
+                        </td>
+                        <td>
+                            <button><a asp-action="ConfirmPickUp" asp-route-id="@item.Id">Confirm Pickup</a></button>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    continue;
+                }
+
             }
         </tbody>
     </table>

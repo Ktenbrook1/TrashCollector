@@ -10,7 +10,7 @@ using TrashCollection.Data;
 namespace TrashCollection.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200922152131_init")]
+    [Migration("20200923201550_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,15 +50,15 @@ namespace TrashCollection.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f0277abb-4deb-4a2d-8ff0-5b55923763e4",
-                            ConcurrencyStamp = "846d5a93-bd23-4098-a8c6-fc147d4547e4",
+                            Id = "f706b246-37a1-4952-afe2-be7ff02b9529",
+                            ConcurrencyStamp = "2904e144-4ae3-4727-8315-7052d1d0421a",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "503b0f92-7506-42a1-826c-f9c07c5bf20d",
-                            ConcurrencyStamp = "a275202c-330c-4e2d-be59-8701be5c36f1",
+                            Id = "ab9694dc-a072-4834-9dbf-7f1dab865d7b",
+                            ConcurrencyStamp = "eedb8c73-70c6-4baf-bbab-443c4c6172a1",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });
@@ -259,6 +259,9 @@ namespace TrashCollection.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PickedUp")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("RequestOfExtraPickup")
                         .HasColumnType("datetime2");

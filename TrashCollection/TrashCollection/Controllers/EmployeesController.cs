@@ -74,7 +74,10 @@ namespace TrashCollection.Controllers
         //{
 
         //}
-
+        public async Task<IActionResult> ViewMap(int? id)
+        {
+            return View();
+        }
         // GET: ConfirmPickup by ID
         public async Task<IActionResult> ConfirmPickup(int? id)
         {
@@ -98,35 +101,28 @@ namespace TrashCollection.Controllers
         //POST: ConfirmPickup by ID
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ConfirmPickup(int id, [Bind("Id,Name,ZipCode,Adress,IdentityUserId")] Customer customer, Employee employee)
+        public async Task<IActionResult> ConfirmPickup(int id, [Bind("Id,Name,ZipCode,Adress,Day,RequestOfExtraPickup,StartDate,EndDate,Balance,IdentityUserId,PickedUp")] Customer customer)
         {
             if (id != customer.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            var today = DateTime.Now.DayOfWeek.ToString();
+            if(customer.Day.ToString() == today)
             {
-                try
+                if (customer.PickedUp == false)
                 {
+                    customer.PickedUp = true;
+                    customer.Balance += 239.91;
                     _context.Update(customer);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!EmployeeExists(customer.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
             }
+
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
-            return View("Index", employee);
+            return View("Index");
         }
 
 

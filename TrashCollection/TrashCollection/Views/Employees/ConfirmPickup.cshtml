@@ -1,74 +1,128 @@
 ﻿@model TrashCollection.Models.Customer
 
 @{
-    ViewData["Title"] = "CustomerPickup";
+    ViewData["Title"] = "ConfirmPickup";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<!DOCTYPE html>
+<html>
+<h1>ConfirmPickup</h1>
 
-<h1>CustomerPickup</h1>
+<h4>Customer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ConfirmPickup">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <br />
+                <h5> @Html.DisplayFor(model => model.Name)</h5>
+                <input asp-for="Name" type="hidden" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ZipCode" class="control-label"></label>
+                <br />
+                <h5> @Html.DisplayFor(model => model.ZipCode)</h5>
+                <input asp-for="ZipCode" type="hidden" class="form-control" />
+                <span asp-validation-for="ZipCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adress" class="control-label"></label>
+                <br />
+                <h5> @Html.DisplayFor(model => model.Adress)</h5>
+                <input asp-for="Adress" type="hidden" class="form-control" />
+                <span asp-validation-for="Adress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Day" class="control-label"></label>
+                <br />
+                <h5> @Html.DisplayFor(model => model.Day)</h5>
+                <input asp-for="Day" type="hidden" class="form-control" />
+                <span asp-validation-for="Day" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequestOfExtraPickup" class="control-label"></label>
+                <br />
+                <h5> @Html.DisplayFor(model => model.RequestOfExtraPickup)</h5>
+                <input asp-for="RequestOfExtraPickup" type="hidden" class="form-control" />
+                <span asp-validation-for="RequestOfExtraPickup" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <br />
+                <h5> @Html.DisplayFor(model => model.StartDate)</h5>
+                <input asp-for="StartDate" type="hidden" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <br />
+                <h5> @Html.DisplayFor(model => model.EndDate)</h5>
+                <input asp-for="EndDate" type="hidden" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Balance" class="control-label"></label>
+                <br />
+                <h5> @Html.DisplayFor(model => model.Balance)</h5>
+                <input asp-for="Balance" type="hidden" class="form-control" />
+                <span asp-validation-for="Balance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdentityUserId" class="control-label"></label>
+                <input asp-for="IdentityUserId" type="hidden" class="form-control" />
+                <span asp-validation-for="IdentityUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="CONFIRM" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<title>Simple Map</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=&v=weekly"
+        defer></script>
+<style type="text/css">
+    /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+    #map {
+        height: 10rem;
+    }
+
+    /* Optional: Makes the sample page fill the window. */
+    html,
+    body {
+        height: 100%;
+        margin: 10px;
+        padding: 0;
+    }
+</style>
+<script>
+    "use strict";
+
+    let map;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: {
+                lat: -34.397,
+                lng: 150.644
+            },
+            zoom: 8
+        });
+    }
+</script>
+
+<body>
+    <div id="map"></div>
+</body>
+</html>
 
 <div>
-    <h4>Customer</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-            <h5></h5>
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ZipCode)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ZipCode)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Adress)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Adress)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Day)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Day)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.RequestOfExtraPickup)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.RequestOfExtraPickup)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Balance)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Balance)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IdentityUser)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IdentityUser.Id)
-        </dd>
-    </dl>
-</div>
-<div class="form-group">
-    <input type="submit" value="CONFIRM" class="btn btn-primary" />
+    <a asp-action="Index">Back to List</a>
 </div>
 

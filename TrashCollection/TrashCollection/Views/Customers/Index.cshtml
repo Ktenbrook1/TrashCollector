@@ -6,9 +6,13 @@
 }
 <body>
     <h1>Index</h1>
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
+    @if (false == (bool)ViewData["CustomerExists"])
+    {
+        <h1>PLEASE CREATE YOUR ACCOUNT!</h1>
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+    }
     <table class="table">
         <thead>
             <tr>

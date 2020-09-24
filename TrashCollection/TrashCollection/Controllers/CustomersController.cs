@@ -67,13 +67,15 @@ namespace TrashCollection.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,ZipCode,Adress,Day,RequestOfExtraPickup,StartDate,EndDate,Balance,IdentityUserId")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,Name,ZipCode,Adress,Day,RequestOfExtraPickup,StartDate,EndDate,Balance,PickedUp,IdentityUserId")] Customer customer)
         {
+            
             if (ModelState.IsValid)
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 customer.IdentityUserId = userId;
                 customer.Balance = 100.00;
+                customer.PickedUp = false;
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -104,7 +106,7 @@ namespace TrashCollection.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ZipCode,Adress,Day,RequestOfExtraPickup,StartDate,EndDate,Balance,IdentityUserId")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ZipCode,Adress,Day,RequestOfExtraPickup,StartDate,EndDate,Balance,PickedUp,IdentityUserId")] Customer customer)
         {
             if (id != customer.Id)
             {
