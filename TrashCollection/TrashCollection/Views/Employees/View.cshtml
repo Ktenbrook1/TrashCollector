@@ -1,0 +1,44 @@
+﻿@model TrashCollection.Models.Customer
+
+@{
+    ViewData["Title"] = "ConfirmPickup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="dvMap" style="height:550px; width: 80%"></div>
+<h2>Please enter the latitude</h2>
+<br />
+<input type="text" id="Lat">
+<h2>Please enter the longitude</h2>
+<input type="text" id="Lng">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDnZud35THIAhystmeY0i2fyFE7QewmfHk&callback=initMap" async defer></script>
+<br />
+<button class=" btn btn-primary"><a asp-action="Submit">Submit</a></button>
+
+<script type="text/javascript">
+    function initMap() {
+     
+        var map = new google.maps.Map(document.getElementById('dvMap'), {
+            center: {
+                lat: 10.9968683,
+                lng: 76.00882
+            },
+            zoom: 6
+        });
+        var marker = new google.maps.Marker({
+            position: {
+                lat: 10.9968683,
+                lng: 76.00882
+            },
+            map: map,
+
+        });
+        google.maps.event.addListener(marker, function () {
+            var Lats = marker.getPosition().lat();
+            var Longs = marker.getPosition().lng();
+            $('#Lat').val(Lats);
+            $('#Long').val(Longs);
+        });
+    }
+</script>

@@ -109,22 +109,43 @@ namespace TrashCollection.Controllers
             }
 
             var today = DateTime.Now.DayOfWeek.ToString();
-            if(customer.Day.ToString() == today)
+       
+            if (customer.Day.ToString() == today)
             {
                 if (customer.PickedUp == false)
                 {
                     customer.PickedUp = true;
                     customer.Balance += 239.91;
+                    customer.Balance = Math.Round(customer.Balance, 2, MidpointRounding.AwayFromZero);
+                    //need to add suspention days
                     _context.Update(customer);
                     _context.SaveChanges();
                     return RedirectToAction(nameof(Index));
                 }
             }
 
+            ViewData["EmployeeExists"] = true;
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
             return View("Index");
         }
+        // GET: Customers/View for api map
+        public async Task<IActionResult> View(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var customer = await _context.customers
+                .Include(c => c.IdentityUser)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return View(customer);
+        }
 
         public async Task<IActionResult> Details(int? id)
         {
